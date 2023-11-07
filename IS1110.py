@@ -1,111 +1,92 @@
 print("Welcome to the pizza shop situated in Cork Airport. It's a pleasure to have you :) ")
-start = True
-while start:
-    # Stops the loop from becoming infinite
-    start = False
-    first_loop = True
-    while first_loop:
-        # Same practice as comment of line 4
-        first_loop = False
-        first_name = input("First off, may I have your first name please: ").capitalize()
+
+
+def first_name():
+    while True:
+        global fname
+        fname = input("First off, may I have your first name please: ").capitalize()
         # Checking if the first name takes too many characters
-        if len(first_name) > 30:
-            first_loop = True
-            print("The length of your name is too long please try again.")
-        # Checking if they put in an input
-        elif len(first_name) == 0:
-            print("Please enter in your first name.")
-            first_loop = True
-        choice1 = input(f"\nIs {first_name} the correct name? If it is not press N but if it is press any other key: ")
+        if len(fname) > 30 or len(fname) == 0:
+            print("Please enter a valid name")
+            continue
+        choice1 = input(f"\nIs {fname} the correct name? If it is not press N but if it is press any other key: ")
         if choice1.upper() == "N":
             print("\n Ok lets take a step back")
-            first_loop = True
+            continue
         else:
-            print("Great!")
+            return "Great!"
 
-    second_loop = True
-    while second_loop:
-        # Same practice as comment on line 4
-        second_loop = False
-        surname = input(f"\nNice to meet you {first_name} and what is your surname: ").capitalize()
-        # Checking if the surname takes too many characters
-        if len(surname) > 30:
-            print("The length of your surname is too long please try again.")
-            second_loop = True
-        # Checking if they put in an input
-        elif len(surname) == 0:
-            print("Please enter your surname.")
-            second_loop = True
-        choice2 = input(f"\nIs {surname} the correct name? If it is not press N but if it is press any other key: ")
+
+print(first_name())
+
+
+def surname():
+    while True:
+        global sname
+        sname = input(f"\nNice to meet you {fname} and what is your surname: ").capitalize()
+        # Checking if the surname takes too many characters or no characters
+        if len(sname) > 30 or len(sname) == 0:
+            print("The surname you have entered is invalid please try again.")
+            continue
+        choice2 = input(f"\nIs {sname} the correct name? If it is not press N but if it is press any other key: ")
         if choice2.upper() == "N":
             print("\n Ok lets take a step back")
-            second_loop = True
-        else:
-            print("Great!")
-
-    third_loop = True
-    while third_loop:
-        # Same practice as comment on line 4
-        third_loop = False
-        try:
-            phone_number = input("\nCan you enter your phone number please: ")
-            # Making sure the phone number is the required length
-            if len(phone_number) != 9:
-                print(
-                    f"Sorry your number is either too long or too short.\n Try again.")
-                print("Remember not to use 0 at the start of your number.")
-                third_loop = True
-                continue
-            # Checking if they put in an input
-            elif len(phone_number) == 0:
-                print("please enter a phone number")
-                third_loop = True
-                continue
-        except ValueError:
-            print("Sorry invalid input :( \nPlease input numbers only.")
-            third_loop = True
             continue
+        else:
+            return "Great!"
+
+
+print(surname())
+
+
+def phone_number():
+    while True:
+        global p_number
+        p_number = input("\nCan you enter your phone number please: ")
+        # Making sure the phone number is the required length
+        if len(p_number) != 9 or len(p_number) == 0:
+            print(f"Sorry your number is either too long or too short.\n Try again.")
+            print("Remember not to use 0 at the start of your number.")
+            continue
+        # Checking if they put in an input
         choice3 = input(
-            f"Is ({phone_number[0:2]}) {phone_number[2:-1]} the correct phone number? If it is not press N but if it is press any other key: ")
+            f"Is ({p_number[0:2]}) {p_number[2:-1]} the correct phone number? "
+            f"If it is not press N but if it is press any other key: ")
         if choice3.upper() == "N":
             print("\n Ok lets take a step back")
-            third_loop_loop = True
+            continue
         else:
-            print("Perfect!")
+            return "Perfect!"
 
-    fourth_loop = True
-    while fourth_loop:
-        # Same practice as comment on line 4
-        fourth_loop = False
+
+print(phone_number())
+
+
+def get_email(): 
+    while True:
+        global email
         email = input("\nFinally what is your email: ")
         # Check for the amounts of times @ is in the email
         # This was adapted from w3schools
         # Link here:
         # https://www.w3schools.com/python/ref_list_count.asp
         validation = email.count("@")
-        if validation != 1:
+        if validation != 1 or len(email) == 0:
             print("Invalid email :( \n Make sure to add an  @ to the email")
-            fourth_loop = True
-        elif len(email) == 0:
-            print("Please enter an email.")
-            fourth_loop = True
+            continue
         choice4 = input(f"Is {email} the correct email? If not press N but if it is press any other key: ")
         if choice4.upper() == "N":
             print("\n Ok lets take a step back")
-            fourth_loop = True
+            continue
         else:
-            print("\nWe are almost there.")
+            return "\nWe are almost there."
 
-    print(
-        f"\nGreat! Nice to meet you {first_name} {surname}. \n Your phone no. is: +353 ({phone_number[0:2]}) {phone_number[2:-1]} and email is: {email}")
-    choice5 = input(
-        "\nCan you confirm this is the correct information? If everything is fine press any key. If it is not type N: ")
-    # If user is unhappy with info then reset the loop
-    if choice5.upper() == "N":
-        print("No worries we will restart.")
-        start = True
-    else:
-        print("\nSplendid!")
+
+print(get_email())
+
+print(
+    f"\nGreat! Nice to meet you {fname} {sname}. \n Your phone no. is: +353 ({p_number[0:2]}) {p_number[2:-1]}"
+    f" and email is: {email}")
 
 print("\nTake a look at our wide selection of Pizzas")
 
@@ -238,14 +219,15 @@ while want_extras:
                 dip_order.append(dip)
                 print("\n Dip added!")
 
-            # Check if they have entered the right amount of topping if they have not reset topping  
+            # Check if they have entered the right amount of topping if they have not reset topping
             if len(topping_order) != choice_toppings or len(dip_order) != choice_dips:
                 print("\n You have made an error in your inputs, so we will restart")
                 want_extras = True
 
             print(f"The toppings you have ordered is {topping_order} and dips you have ordered is {dip_order}")
             restart_extras = str(input(
-                "\n Do you want to restart your order on toppings and dip.\nIf you want to enter, please enter Y or else enter any key: "))
+                "\n Do you want to restart your order on toppings and dip.\nIf you want to enter, "
+                "please enter Y or else enter any key: "))
 
             if restart_extras == "Y":
                 print("\n Ok lets take a step back")
@@ -329,9 +311,6 @@ while want_drinks:
             elif restart_drinks == "no":
                 print("Ok lets continue!")
 
-
-
-
         except ValueError:
             print("\n Sorry you need to use a number to indicate how many drinks you want.")
             want_drinks = True
@@ -382,7 +361,6 @@ while True:
                 delivery_cost = 45
                 break
 
-
         elif delivery_in_cork.lower() == "no":
             delivery_cost = 50
             break
@@ -393,9 +371,9 @@ while True:
 
 print(f"\n The cost of your delivery is: €{delivery_cost}")
 
-cost_before_vat = delivery_cost + drinks_sum(drinks_dict=drinks) + dips_toppings_cost(dip=dip_order,
-                                                                                      topping=topping_order) + pizza_cost(
-    pizza=pizza, pizza_size=pizza_size)
+cost_before_vat = (delivery_cost + drinks_sum(drinks_dict=drinks) + dips_toppings_cost(dip=dip_order,
+                                                                                       topping=topping_order) + pizza_cost(
+    pizza=pizza, pizza_size=pizza_size))
 if cost_before_vat >= 35:
     discount = cost_before_vat / 10
     cost_before_vat -= discount
@@ -404,11 +382,11 @@ if cost_before_vat >= 35:
 elif cost_before_vat >= 50:
     discount = cost_before_vat / 15
     cost_before_vat -= discount
-    print(f"\n Due to your price being high you have received a discount of {discount}.")
-    print(f"\n Now your total price before vat is {cost_before_vat}")
+    print(f"\n Due to your price being high you have received a discount of €{discount}.")
+    print(f"\n Now your total price before vat is €{cost_before_vat}")
 
 cost_with_vat = cost_before_vat * 1.23
-print(f"\n Your cost with vat is {round(cost_with_vat, 2)}")
+print(f"\n Your cost with vat is €{round(cost_with_vat, 2)}")
 print("Thanks for ordering at our pizza shop. We hope you enjoy your food :D")
 
 # Which is a better mechanic press any key or force them to press Y to continue and handle errors if they don't
